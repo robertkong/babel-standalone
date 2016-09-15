@@ -65,9 +65,24 @@ function buildBabelOptions(script) {
  */
 function run(transformFn, script) {
   const scriptEl = document.createElement('script');
-  scriptEl.text = transformCode(transformFn, script);
-  headEl.appendChild(scriptEl);
+  var transformedCode = transformCode(transformFn, script);
+  var scriptURL = script.url ? script.url : "inlinebabelscript-" + inlineScriptCount;
+  transformedCode += "\r\n sourceURL=/" + scriptURL;
+
+
+  DOMEval(transformedCode);
 }
+
+/* Adapted from JQuery */
+function DOMEval( code, doc ) {
+    doc = doc || document;
+
+    var script = doc.createElement( "script" );
+
+    script.text = code;
+    doc.head.appendChild( script ).parentNode.removeChild( script );
+}
+
 
 /**
  * Load script from the provided url and pass the content to the callback.
