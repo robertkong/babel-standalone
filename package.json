@@ -1,6 +1,6 @@
 {
   "name": "babel-standalone",
-  "version": "6.15.0",
+  "version": "6.15.1",
   "description": "Standalone build of Babel for use in non-Node.js environments. Similar to the (now deprecated) babel-browser",
   "main": "babel.js",
   "scripts": {
@@ -141,7 +141,7 @@
     "transpile",
     "transpiler"
   ],
-  "author": "Daniel Lo Nigro \u003cdaniel@dan.cx\u003e (http://dan.cx/)",
+  "author": "Daniel Lo Nigro <daniel@dan.cx> (http://dan.cx/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Daniel15/babel-standalone/issues"
