@@ -23,8 +23,8 @@ function transformCode(transformFn, script) {
   if (script.url != null) {
     source = script.url;
   } else {
-      // This has to start with absolute so transformed.js will appear under file://. Otherwise, the transformed.js won't appear in chrome
-    source = '/InlineBabelScript';
+      // Change this to appear in same folder as document.
+    source = getUrlFolder() + '/InlineBabelScript';
     inlineScriptCount++;
     if (inlineScriptCount > 1) {
       source += '-' + inlineScriptCount + '';
@@ -39,6 +39,16 @@ function transformCode(transformFn, script) {
       ...buildBabelOptions(script),
     }
 ).code + "\r\n//# sourceURL=" + source + ".transformed.js";
+}
+
+function getUrlFolder() {
+    var url = document.baseURI;
+    var index = url.lastIndexOf('/');
+    if (index >= 0) {
+        url = url.substring(0, index);
+    }
+
+    return url;
 }
 
 /**
