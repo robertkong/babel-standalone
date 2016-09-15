@@ -23,10 +23,11 @@ function transformCode(transformFn, script) {
   if (script.url != null) {
     source = script.url;
   } else {
-    source = 'Inline Babel script';
+      // This has to start with absolute so transformed.js will appear under file://. Otherwise, the transformed.js won't appear in chrome
+    source = '/InlineBabelScript';
     inlineScriptCount++;
     if (inlineScriptCount > 1) {
-      source += ' (' + inlineScriptCount + ')';
+      source += '-' + inlineScriptCount + '';
     }
   }
 
@@ -34,9 +35,10 @@ function transformCode(transformFn, script) {
     script.content,
     {
       filename: source,
+      sourceFileName: source,
       ...buildBabelOptions(script),
     }
-  ).code;
+).code + "\r\n//# sourceURL=" + source + ".transformed.js";
 }
 
 /**
